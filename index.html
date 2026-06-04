@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#070912" />
+  <meta name="description" content="AI Command Center Mobile — mobilny panel pracy z AI, Google Skills, OpenAI Platform, Linux i GitHub." />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="style.css" />
+  <title>AI Command Center Mobile</title>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <button class="icon-btn" id="menuButton" aria-label="Otwórz menu"><span></span><span></span><span></span></button>
+      <div><p class="eyebrow">Gemini-style workspace</p><h1 id="screenTitle">AI Command Center</h1></div>
+      <button class="avatar-btn" id="installButton" aria-label="Zainstaluj aplikację">+</button>
+    </header>
+
+    <aside class="drawer" id="drawer">
+      <div class="drawer-card">
+        <div class="drawer-head"><div class="app-mark">AI</div><div><h2>AI Command Center</h2><p>Mobilny panel operacyjny</p></div></div>
+        <nav class="drawer-nav">
+          <button data-tab="start">Start</button><button data-tab="ai">AI</button><button data-tab="labs">Laby</button><button data-tab="admin">Admin</button><button data-tab="linux">Linux</button><button data-tab="notes">Notatki</button>
+        </nav>
+        <div class="drawer-footer"><p>Tryb: PWA</p><p>Brak logowania. Brak sekretów. Bezpieczny dashboard.</p></div>
+      </div>
+    </aside>
+
+    <main class="content">
+      <section class="screen active" id="start">
+        <div class="hero-card"><div><p class="eyebrow">centrum pracy</p><h2>Mobilne centrum AI, chmury i Linuxa</h2><p>Jeden ekran do szybkiego przejścia między AI, Google Skills, OpenAI Platform, GitHub i UserLAnd.</p></div><span class="status-pill live">READY</span></div>
+        <div class="grid two"><article class="mini-stat"><span>OpenAI Admin</span><strong>Aktywny</strong></article><article class="mini-stat cyan"><span>Linux/UserLAnd</span><strong>Gotowy</strong></article><article class="mini-stat violet"><span>Google Skills</span><strong>W toku</strong></article><article class="mini-stat amber"><span>GitHub</span><strong>Gotowy</strong></article></div>
+        <h3 class="section-title">Szybki dostęp</h3>
+        <div class="card-list"><button class="action-card" data-open="https://www.cloudskillsboost.google/"><span class="stripe blue"></span><div><strong>Google Skills</strong><p>Laby, certyfikaty, Cloud Shell i checklisty.</p></div><b>Otwórz</b></button><button class="action-card" data-open="https://platform.openai.com/"><span class="stripe violet"></span><div><strong>OpenAI Platform</strong><p>Projekty, klucze, billing, usage i Admin API.</p></div><b>Panel</b></button><button class="action-card" data-tab="linux"><span class="stripe cyan"></span><div><strong>Linux Terminal</strong><p>UserLAnd, tmux, Python, Git, gcloud i kubectl.</p></div><b>Start</b></button><button class="action-card" data-open="https://github.com/"><span class="stripe amber"></span><div><strong>GitHub</strong><p>Repozytoria, issues, README i portfolio techniczne.</p></div><b>Git</b></button></div>
+      </section>
+
+      <section class="screen" id="ai"><div class="hero-card compact"><div><p class="eyebrow">modele i sparing</p><h2>AI Workspace</h2><p>Modele jako asystenci, trenerzy rozmowy i narzędzia analityczne.</p></div><span class="status-pill violet">AI</span></div><div class="card-list"><button class="action-card" data-open="https://chatgpt.com/"><span class="stripe green"></span><div><strong>ChatGPT</strong><p>Rozumowanie, dokumenty, kod, planowanie i analiza.</p></div><b>Chat</b></button><button class="action-card" data-open="https://gemini.google.com/"><span class="stripe blue"></span><div><strong>Gemini</strong><p>Google, laby, badania, szybka analiza i porównania.</p></div><b>Gemini</b></button><button class="action-card" data-open="https://claude.ai/"><span class="stripe violet"></span><div><strong>Claude</strong><p>Długi kontekst, pisanie, alternatywna analiza tekstu.</p></div><b>Claude</b></button></div><article class="panel"><div class="panel-head"><h3>Kontrola jakości AI</h3><span class="status-pill cyan">CHECK</span></div><label class="check-row"><input type="checkbox"> Czy odpowiedź trafia w pytanie?</label><label class="check-row"><input type="checkbox"> Czy model nie zmienił tematu?</label><label class="check-row"><input type="checkbox"> Czy to fakt, hipoteza czy interpretacja?</label><label class="check-row"><input type="checkbox"> Czy potrzebna jest weryfikacja?</label></article><button class="primary-btn" id="copyAiPrompt">Kopiuj prompt kontroli jakości</button></section>
+
+      <section class="screen" id="labs"><div class="hero-card compact"><div><p class="eyebrow">certyfikaty</p><h2>Google Skills</h2><p>Checklisty, komendy i postęp labów Google Cloud.</p></div><span class="status-pill amber">W TOKU</span></div><article class="panel"><div class="panel-head"><h3>Aktualny moduł</h3><span class="status-pill blue">GKE</span></div><h4>Manage Kubernetes in Google Cloud</h4><p class="muted">Challenge Lab: klaster, Prometheus, deployment, alerting, Artifact Registry.</p></article><div class="card-list"><button class="action-card" data-open="https://console.cloud.google.com/"><span class="stripe blue"></span><div><strong>Cloud Console</strong><p>Panel Google Cloud i Cloud Shell.</p></div><b>Otwórz</b></button><button class="action-card" data-copy="gcloud config get-value project"><span class="stripe cyan"></span><div><strong>Sprawdź projekt</strong><p>Kopiuj komendę PROJECT_ID do Cloud Shell.</p></div><b>Kopiuj</b></button><button class="action-card" data-copy="kubectl get nodes && kubectl get pods -A"><span class="stripe green"></span><div><strong>Kontrola Kubernetes</strong><p>Węzły, pody i status klastra.</p></div><b>Kopiuj</b></button></div></section>
+
+      <section class="screen" id="admin"><div class="hero-card compact"><div><p class="eyebrow">organizacja</p><h2>OpenAI Admin</h2><p>Projekty, service accounts, API keys, billing, usage i bezpieczeństwo.</p></div><span class="status-pill violet">OWNER</span></div><article class="panel"><h3>Rola</h3><h4>Organization Owner</h4><p class="muted">Admin API i panel organizacji jako osobne narzędzia kontroli.</p></article><div class="card-list"><button class="action-card" data-open="https://platform.openai.com/settings/organization/general"><span class="stripe blue"></span><div><strong>Organizacja</strong><p>Ustawienia organizacji i projekty.</p></div><b>Panel</b></button><button class="action-card" data-open="https://platform.openai.com/api-keys"><span class="stripe violet"></span><div><strong>API Keys</strong><p>Klucze projektowe, nie klucz admina.</p></div><b>Klucze</b></button><button class="action-card" data-open="https://platform.openai.com/settings/organization/billing/overview"><span class="stripe amber"></span><div><strong>Billing / Usage</strong><p>Kredyty, quota, limity i kontrola kosztów.</p></div><b>Billing</b></button></div><article class="warning-panel"><strong>Zasada bezpieczeństwa</strong><p>OPENAI_ADMIN_KEY ≠ OPENAI_API_KEY. Nie pokazuj kluczy na screenach. Oddziel admina od kluczy projektowych.</p></article></section>
+
+      <section class="screen" id="linux"><div class="hero-card compact"><div><p class="eyebrow">terminal</p><h2>Linux / UserLAnd</h2><p>Terminal pomocniczy do API, Git, Python, tmux i diagnostyki.</p></div><span class="status-pill cyan">CLI</span></div><article class="terminal-card"><p>userland@localhost:~$</p><pre><code>tmux attach -t setup
+python3 -m venv .venv
+source .venv/bin/activate
+kubectl get pods -n lab</code></pre></article><div class="card-list"><button class="action-card" data-copy="tmux new -s setup || tmux attach -t setup"><span class="stripe green"></span><div><strong>tmux</strong><p>Dłuższe procesy bez utraty sesji.</p></div><b>Kopiuj</b></button><button class="action-card" data-copy="python3 -m venv .venv && source .venv/bin/activate"><span class="stripe blue"></span><div><strong>Python / venv</strong><p>Środowisko do SDK, API i skryptów.</p></div><b>Kopiuj</b></button><button class="action-card" data-copy="git status && git add . && git commit -m 'update'"><span class="stripe violet"></span><div><strong>Git / GitHub</strong><p>Repozytoria, issues i portfolio techniczne.</p></div><b>Kopiuj</b></button></div></section>
+
+      <section class="screen" id="notes"><div class="hero-card compact"><div><p class="eyebrow">baza wiedzy</p><h2>Notatki</h2><p>Procedury, prompty, komendy i dokumentacja robocza.</p></div><span class="status-pill blue">LOCAL</span></div><div class="note-editor"><textarea id="quickNote" placeholder="Szybka notatka: komenda, wniosek, błąd, pomysł..."></textarea><button class="primary-btn" id="saveNote">Zapisz lokalnie</button></div><article class="panel"><div class="panel-head"><h3>Ostatnia notatka</h3><span class="status-pill cyan">CACHE</span></div><p id="savedNote" class="muted">Brak zapisanej notatki.</p></article></section>
+    </main>
+
+    <button class="fab" id="fabButton" aria-label="Szybka akcja">✦</button>
+    <nav class="bottom-nav" aria-label="Główna nawigacja"><button class="nav-btn active" data-tab="start">Start</button><button class="nav-btn" data-tab="ai">AI</button><button class="nav-btn" data-tab="labs">Laby</button><button class="nav-btn" data-tab="admin">Admin</button><button class="nav-btn" data-tab="linux">Linux</button><button class="nav-btn" data-tab="notes">Notatki</button></nav>
+  </div>
+  <div class="toast" id="toast">Skopiowano</div>
+  <script src="script.js"></script>
+</body>
+</html>
