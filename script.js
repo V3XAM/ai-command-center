@@ -24,7 +24,7 @@ function loadNote(){const n=localStorage.getItem("quickNote");if(n){quickNote.va
 loadNote();
 document.getElementById("saveNote").addEventListener("click",()=>{const v=quickNote.value.trim();if(!v){showToast("Notatka jest pusta");return}localStorage.setItem("quickNote",v);savedNote.textContent=v;showToast("Zapisano lokalnie")});
 const lastTab=localStorage.getItem("lastTab");if(lastTab&&document.getElementById(lastTab))setTab(lastTab);
-if("serviceWorker"in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./service-worker.js").catch(()=>{}))}
+if("serviceWorker"in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}))}
 let deferredPrompt;const installButton=document.getElementById("installButton");
 window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPrompt=e;installButton.textContent="↓";showToast("Aplikację można zainstalować")});
 installButton.addEventListener("click",async()=>{if(deferredPrompt){deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;installButton.textContent="+"}else showToast("W Chrome wybierz: Dodaj do ekranu głównego")});
