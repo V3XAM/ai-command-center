@@ -1,0 +1,24 @@
+{
+  "name": "AI Command Center Mobile",
+  "short_name": "AI Center",
+  "description": "Mobilny panel pracy z AI, Google Skills, OpenAI Platform, Linux i GitHub.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#070912",
+  "theme_color": "#070912",
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": [
+    "productivity",
+    "utilities",
+    "education"
+  ]
+}
