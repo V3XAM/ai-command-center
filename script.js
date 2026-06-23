@@ -23,6 +23,9 @@ const savedNote=document.getElementById("savedNote");
 function loadNote(){const n=localStorage.getItem("quickNote");if(n){quickNote.value=n;savedNote.textContent=n}}
 loadNote();
 document.getElementById("saveNote").addEventListener("click",()=>{const v=quickNote.value.trim();if(!v){showToast("Notatka jest pusta");return}localStorage.setItem("quickNote",v);savedNote.textContent=v;showToast("Zapisano lokalnie")});
+function checklistKey(input,index){const label=input.closest(".check-row")?.textContent.trim().replace(/\s+/g," ")||`check-${index}`;return `aiCommandCenter.checklist.${index}.${label}`}
+function loadPersistentChecklists(){document.querySelectorAll(".check-row input[type='checkbox']").forEach((input,index)=>{const key=checklistKey(input,index);const saved=localStorage.getItem(key);if(saved!==null)input.checked=saved==="true";input.addEventListener("change",()=>{localStorage.setItem(key,String(input.checked));showToast(input.checked?"Zaznaczono i zapisano":"Odznaczono i zapisano")})})}
+loadPersistentChecklists();
 const lastTab=localStorage.getItem("lastTab");if(lastTab&&document.getElementById(lastTab))setTab(lastTab);
 if("serviceWorker"in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}))}
 let deferredPrompt;const installButton=document.getElementById("installButton");
