@@ -18,11 +18,20 @@ const aiPrompt=`Sprawdź jakość swojej odpowiedzi:
 5. Czy nie zmieniłeś zakresu tematu?
 6. Podaj wersję bardziej precyzyjną i techniczną.`;
 document.getElementById("copyAiPrompt").addEventListener("click",async()=>{await navigator.clipboard.writeText(aiPrompt);showToast("Skopiowano prompt")});
+const noteTitle=document.getElementById("noteTitle");
 const quickNote=document.getElementById("quickNote");
-const savedNote=document.getElementById("savedNote");
-function loadNote(){const n=localStorage.getItem("quickNote");if(n){quickNote.value=n;savedNote.textContent=n}}
-loadNote();
-document.getElementById("saveNote").addEventListener("click",()=>{const v=quickNote.value.trim();if(!v){showToast("Notatka jest pusta");return}localStorage.setItem("quickNote",v);savedNote.textContent=v;showToast("Zapisano lokalnie")});
+const noteList=document.getElementById("noteList");
+const noteCount=document.getElementById("noteCount");
+const notesKey="aiCommandCenter.notes.v1";
+function readNotes(){try{return JSON.parse(localStorage.getItem(notesKey)||"[]")}catch{return[]}}
+function writeNotes(notes){localStorage.setItem(notesKey,JSON.stringify(notes))}
+function formatNoteDate(value){return new Intl.DateTimeFormat("pl-PL",{day:"2-digit",month:"2-digit",year:"2-digit",hour:"2-digit",minute:"2-digit"}).format(new Date(value))}
+function migrateLegacyNote(){const notes=readNotes();const legacy=localStorage.getItem("quickNote");if(!notes.length&&legacy){writeNotes([{id:String(Date.now()),title:"Zaimportowana notatka",body:legacy,createdAt:new Date().toISOString()}]);localStorage.removeItem("quickNote")}}
+function renderNotes(){const notes=readNotes();noteList.innerHTML="";noteCount.textContent=String(notes.length);if(!notes.length){const empty=document.createElement("p");empty.className="muted";empty.textContent="Brak zapisanych notatek.";noteList.appendChild(empty);return}notes.forEach(note=>{const card=document.createElement("article");card.className="note-card";const head=document.createElement("div");head.className="note-card-head";const title=document.createElement("h4");title.textContent=note.title;const date=document.createElement("span");date.className="status-pill blue";date.textContent=formatNoteDate(note.createdAt);head.append(title,date);const body=document.createElement("p");body.className="muted note-body";body.textContent=note.body;const actions=document.createElement("div");actions.className="note-actions";const copy=document.createElement("button");copy.className="note-action-btn";copy.type="button";copy.dataset.noteCopy=note.id;copy.textContent="Kopiuj";const del=document.createElement("button");del.className="note-action-btn danger";del.type="button";del.dataset.noteDelete=note.id;del.textContent="Usuń";actions.append(copy,del);card.append(head,body,actions);noteList.appendChild(card)})}
+migrateLegacyNote();
+renderNotes();
+document.getElementById("saveNote").addEventListener("click",()=>{const body=quickNote.value.trim();if(!body){showToast("Notatka jest pusta");return}const title=noteTitle.value.trim()||body.split("\n")[0].slice(0,42)||"Notatka";const notes=readNotes();notes.unshift({id:String(Date.now()),title,body,createdAt:new Date().toISOString()});writeNotes(notes);noteTitle.value="";quickNote.value="";renderNotes();showToast("Dodano notatkę")});
+document.addEventListener("click",async e=>{const copy=e.target.closest("[data-note-copy]");if(copy){const note=readNotes().find(n=>n.id===copy.dataset.noteCopy);if(note){await navigator.clipboard.writeText(`${note.title}\n\n${note.body}`);showToast("Skopiowano notatkę")}}const del=e.target.closest("[data-note-delete]");if(del){writeNotes(readNotes().filter(n=>n.id!==del.dataset.noteDelete));renderNotes();showToast("Usunięto notatkę")}});
 function checklistKey(input,index){const label=input.closest(".check-row")?.textContent.trim().replace(/\s+/g," ")||`check-${index}`;return `aiCommandCenter.checklist.${index}.${label}`}
 function loadPersistentChecklists(){document.querySelectorAll(".check-row input[type='checkbox']").forEach((input,index)=>{const key=checklistKey(input,index);const saved=localStorage.getItem(key);if(saved!==null)input.checked=saved==="true";input.addEventListener("change",()=>{localStorage.setItem(key,String(input.checked));showToast(input.checked?"Zaznaczono i zapisano":"Odznaczono i zapisano")})})}
 loadPersistentChecklists();
