@@ -1,5 +1,5 @@
-const CACHE_NAME="ai-command-center-v3";
-const APP_SHELL=["./","./index.html","./style.css","./script.js","./manifest.json","./icons/icon.svg"];
+const CACHE_NAME="ai-command-center-v4";
+const APP_SHELL=["./","./index.html","./style.css","./gemini-native.css","./script.js","./manifest.json","./icons/icon.svg"];
 
 self.addEventListener("install",e=>{
   self.skipWaiting();
@@ -22,7 +22,7 @@ self.addEventListener("fetch",e=>{
 
   if(isAppAsset){
     e.respondWith(
-      fetch(e.request)
+      fetch(e.request,{cache:"no-store"})
         .then(response=>{
           const copy=response.clone();
           caches.open(CACHE_NAME).then(cache=>cache.put(e.request,copy));
