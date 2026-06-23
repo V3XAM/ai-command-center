@@ -1,4 +1,4 @@
-const CACHE_NAME="ai-command-center-v2";
+const CACHE_NAME="ai-command-center-v3";
 const APP_SHELL=["./","./index.html","./style.css","./script.js","./manifest.json","./icons/icon.svg"];
 
 self.addEventListener("install",e=>{
